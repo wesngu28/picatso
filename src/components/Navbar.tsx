@@ -6,11 +6,11 @@ export function Navbar() {
 
   return (
     <div className="absolute top-0 flex h-12 w-full items-center justify-between bg-purple-800 p-6 text-white font-semibold">
-      <div className="flex gap-16">
+      <div className="flex gap-6 sm:gap-16">
         <Link href="/">Picatso</Link>
-        <Link href={"/gallery"}>Browse Creations</Link>
+        <Link href={"/gallery"}>Gallery</Link>
       </div>
-      <div className="flex gap-16">
+      <div className="flex gap-6 sm:gap-16">
         { user && user.email ?
           <>
             <Link href="/user">Profile</Link>

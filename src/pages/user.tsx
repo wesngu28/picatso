@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     void getAllImages(user, true, handleFetchedImages);
-  }, [user]);
+  })
   return (
     <>
       <Meta title={`${user?.nickname ? `${user?.nickname} Gallery` : "User Gallery"}`} />

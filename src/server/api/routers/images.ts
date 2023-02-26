@@ -8,10 +8,10 @@ import { openai } from "~/utils/openAiApi";
 export const imagesRouter = createTRPCRouter({
     getAll: publicProcedure
       .query(async ({ ctx }) => {
-        const images: PostgrestSingleResponse<{ generator: string, url: string, user_id: string }[]> = await ctx.serverbase
+        const images: PostgrestSingleResponse<imageEntry[]> = await ctx.serverbase
           .from("Images")
           .select()
-        return images
+        return images.data?.sort((a, b) => b.id - a.id)
     }),
 
     addImage: publicProcedure

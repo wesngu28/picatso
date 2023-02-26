@@ -1,5 +1,5 @@
 type imageEntry = {
-  _id: number;
+  id: number;
   created_at: string;
   generator: string;
   url: string;
