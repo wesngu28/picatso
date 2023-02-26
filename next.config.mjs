@@ -21,14 +21,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/du7mimevn/image/upload/**',
-      },
-    ],
+    domains: ['res.cloudinary.com'],
   },
 };
 export default config;
