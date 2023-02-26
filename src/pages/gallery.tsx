@@ -39,6 +39,7 @@ const Home: NextPage = () => {
 
   function handleDoubleClick(img: imageEntry, i: number) {
     if(user && user.nickname) {
+      if (user.nickname === img.user_id) return
       if ((img.likers as string[]).includes(user.nickname)) {
         setHeart("💔")
       } else {
