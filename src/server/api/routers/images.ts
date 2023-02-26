@@ -42,14 +42,14 @@ export const imagesRouter = createTRPCRouter({
       }),
 
     updateLikes: publicProcedure
-      .input(z.object({ generator: z.string(), likers: z.array(z.string()), user: z.string(), likes: z.number() }))
+      .input(z.object({ identifier: z.string(), likers: z.array(z.string()), user: z.string(), likes: z.number() }))
       .mutation(async ({ctx, input}) => {
         if (input.likers.includes(input.user)) {
           const rmuserfromarr = input.likers.filter(user => user !== input.user)
-          await ctx.serverbase.from("Images").update({likes: input.likes-1, likers: rmuserfromarr}).eq("generator", input.generator)
+          await ctx.serverbase.from("Images").update({likes: input.likes-1, likers: rmuserfromarr}).eq("url", input.identifier)
           return input.likes - 1
         } else {
-          await ctx.serverbase.from("Images").update({likes: input.likes + 1, likers: [...input.likers, input.user]}).eq("generator", input.generator)
+          await ctx.serverbase.from("Images").update({likes: input.likes + 1, likers: [...input.likers, input.user]}).eq("url", input.identifier)
           return input.likes + 1
         }
       })
