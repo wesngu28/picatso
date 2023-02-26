@@ -6,6 +6,8 @@ import { api } from "~/utils/api";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Meta } from '~/components/Meta';
 import { getAllImages } from '~/utils/utils';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 const Home: NextPage = () => {
   const toasts = useRef<(HTMLDivElement | null)[]>([]);
@@ -14,6 +16,7 @@ const Home: NextPage = () => {
   const [images, setImages] = useState([] as imageEntry[]);
   const handleFetchedImages = (arr: imageEntry[]) => setImages(arr)
   const [heart, setHeart] = useState("❤️")
+  const [paginator] = useAutoAnimate()
 
   function handleDoubleClick(img: imageEntry, i: number) {
     if(user && user.nickname) {
@@ -53,7 +56,7 @@ const Home: NextPage = () => {
       <Meta title={"Cat Gallery"} />
       <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <Navbar     />
-        <div className="container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mt-24 gap-4">
+        <div ref={paginator} className="container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mt-24 gap-4">
           {images && images.map((img, i) =>
             <div onDoubleClick={() => handleDoubleClick(img, i)}
             className="relative" key={i}>
@@ -69,5 +72,8 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+
+export const getServerSideProps = withPageAuthRequired()
 
 export default Home;

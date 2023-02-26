@@ -1,4 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { type NextPage } from "next";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -6,6 +7,7 @@ import { HoverImageInfo } from "~/components/HoverImageInfo";
 import { Meta } from "~/components/Meta";
 import { Navbar } from "~/components/Navbar";
 import { getAllImages } from "~/utils/utils";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Home: NextPage = () => {
   const { user } = useUser();
@@ -13,6 +15,7 @@ const Home: NextPage = () => {
   const handleFetchedImages = (arr: imageEntry[]) => setImages(arr)
   const popout = useRef<HTMLDivElement | null>(null);
   const [modalpic, setModalpic] = useState({} as imageEntry)
+  const [paginator] = useAutoAnimate()
 
   function handleClick(img: imageEntry) {
       if (popout.current) {
@@ -35,7 +38,7 @@ const Home: NextPage = () => {
             <span className="text-[hsl(280,100%,70%)]">{user?.nickname}</span>
           </h2>
           <p className="text-3xl text-white">These are your cats.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-xl items-center justify-center gap-4">
+          <div ref={paginator} className="grid grid-cols-1 sm:grid-cols-2 max-w-xl items-center justify-center gap-4">
             {images &&
               images.map((img) => (
                 <div className="relative" key={img.url} onClick={() => handleClick(img)}>
@@ -64,5 +67,7 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps = withPageAuthRequired()
 
 export default Home;

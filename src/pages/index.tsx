@@ -9,8 +9,8 @@ import { Navbar } from "~/components/Navbar";
 import { Result } from "~/components/Result";
 
 const Home: NextPage = () => {
-  const [descriptor, setDescriptor] = useState("grumpy abysinnian");
-  const [action, setAction] = useState("riding a bicycle");
+  const [descriptor, setDescriptor] = useState("");
+  const [action, setAction] = useState("");
   const [showInputs, setShowInputs] = useState(true)
   const handleImagePresence = (bool: boolean) => setShowInputs(bool)
   const handleDescriptionInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => setDescriptor(event.target.value);
@@ -28,7 +28,9 @@ const Home: NextPage = () => {
             user?.name ?
             <>
               {showInputs && <Input descriptor={descriptor} setDescriptor={handleDescriptionInput} action={action} setAction={handleActionInput} /> }
-              <Result descriptor={descriptor} action={action} show={showInputs} shower={handleImagePresence} />
+              <Result
+                descriptor={descriptor} action={action} show={showInputs} shower={handleImagePresence}
+              />
             </>
             : <Link href="/api/auth/login"
               className="p-4 bg-purple-600 rounded-full text-2xl text-white font-thin tracking-tighter">
