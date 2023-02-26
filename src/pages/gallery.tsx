@@ -12,6 +12,7 @@ const Home: NextPage = () => {
   const mutation = api.images.updateLikes.useMutation();
   const { user } = useUser()
   const [images, setImages] = useState([] as { generator: string; url: string; user_id: string; likes: number, likers: [] }[]);
+  const [heart, setHeart] = useState("❤️")
   useEffect(() => {
     async function getAllImages() {
       const {data: images}: PostgrestSingleResponse<{ generator: string, url: string, user_id: string, likes: number, likers: [] }[]> = await supabase.from("Images").select()
@@ -38,6 +39,11 @@ const Home: NextPage = () => {
           {images && images.map((img, i) =>
             <div onDoubleClick={() => {
               if(user && user.nickname) {
+                if ((img.likers as string[]).includes(user.nickname)) {
+                  setHeart("💔")
+                } else {
+                  setHeart("❤️")
+                }
                 mutation.mutate(
                   {
                     generator: img.generator,
@@ -55,15 +61,16 @@ const Home: NextPage = () => {
                         toast.classList.remove('opacity-100')
                         toast.classList.add('opacity-0')
                       }
-                  }, 2500);
+                  }, 1250);
                 }
               }
-            }} className="relative" key={img.url}>
+            }} className="relative" key={i}>
               <img className="peer hover:opacity-50" src={img.url} />
               <p className="peer-hover:opacity-100 opacity-0 absolute text-white bottom-0 p-4">{img.user_id}</p>
+              <p className="peer-hover:opacity-100 opacity-0 absolute text-white bottom-0 right-0 p-4">{img.likes} ❤️</p>
               <div ref={(el) => { toasts.current[i] = el; }}
-                className="bg-gray-600 p-2 rounded-md absolute bottom-0 right-0 opacity-0 transition-opacity duration-1000 ease-in">
-                Liked Post!!
+                className="p-2 bg-transparent absolute top-1/2 left-1/2 opacity-0 transition-opacity duration-1000 ease-in text-2xl">
+                {heart}
               </div>
             </div>
           )}
