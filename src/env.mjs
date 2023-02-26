@@ -15,7 +15,7 @@ const server = z.object({
   AUTH0_ISSUER_BASE_URL: z.string(),
   AUTH0_CLIENT_ID: z.string(),
   AUTH0_CLIENT_SECRET: z.string(),
-  SUPABASE_JWT_SECRET: z.string(),
+  OPENAPI_KEY: z.string()
 });
 
 /**
@@ -45,7 +45,7 @@ const processEnv = {
   AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
-  SUPABASE_JWT_SECRET: process.env.SUPABASE_JWT_SECRET
+  OPENAPI_KEY: process.env.OPENAPI_KEY
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
