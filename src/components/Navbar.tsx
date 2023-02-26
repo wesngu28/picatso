@@ -7,7 +7,7 @@ export function Navbar() {
   return (
     <div className="absolute top-0 flex h-12 w-full items-center justify-between bg-purple-800 p-4">
       <div className="flex gap-16">
-        <p>OpenCV</p>
+        <Link href="/">Picatso</Link>
         <Link href={"/gallery"}>Browse Creations</Link>
       </div>
       <div>

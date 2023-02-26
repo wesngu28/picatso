@@ -6,6 +6,16 @@ import { z } from "zod";
  */
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
+  CLOUDINARY_CLOUD_NAME: z.string(),
+  CLOUDINARY_API_KEY: z.string(),
+  CLOUDINARY_API_SECRET: z.string(),
+  PRIVATE_SUPABASE: z.string(),
+  AUTH0_SECRET: z.string(),
+  AUTH0_BASE_URL: z.string(),
+  AUTH0_ISSUER_BASE_URL: z.string(),
+  AUTH0_CLIENT_ID: z.string(),
+  AUTH0_CLIENT_SECRET: z.string(),
+  SUPABASE_JWT_SECRET: z.string(),
 });
 
 /**
@@ -15,6 +25,7 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  NEXT_PUBLIC_PUBLIC_SUPABASE: z.string()
 });
 
 /**
@@ -24,6 +35,17 @@ const client = z.object({
  */
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  NEXT_PUBLIC_PUBLIC_SUPABASE: process.env.NEXT_PUBLIC_PUBLIC_SUPABASE,
+  PRIVATE_SUPABASE: process.env.PRIVATE_SUPABASE,
+  AUTH0_SECRET: process.env.AUTH0_SECRET,
+  AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,
+  AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
+  AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+  AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
+  SUPABASE_JWT_SECRET: process.env.SUPABASE_JWT_SECRET
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
