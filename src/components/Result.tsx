@@ -10,7 +10,7 @@ interface Props {
 export function Result({ descriptor, action }: Props) {
   const [img, setImg] = useState("");
   const { user } = useUser()
-  const mutation = api.example.addImage.useMutation({onSuccess: (res) => {
+  const mutation = api.images.addImage.useMutation({onSuccess: (res) => {
     setImg(res)
   }});
   function buildImage() {
