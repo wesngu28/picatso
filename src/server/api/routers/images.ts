@@ -18,26 +18,24 @@ export const imagesRouter = createTRPCRouter({
       .input(z.object({ generator: z.string(), user_id: z.string() }))
       .mutation(async ({ ctx, input }) => {
         const id = nanoid()
-        // const dalleReturn = await openai.createImage({
-        //   prompt: input.generator,
-        //   n: 1,
-        //   size: "1024x1024"
-        // })
-        // if (dalleReturn?.data?.data?.[0]?.url) {
-        const temp = {url: "https://res.cloudinary.com/du7mimevn/image/upload/v1677383998/opencatvision/avvDB6ZaufpgsKU4CnF_W.png"}
-        if(temp) {
-          // const aiUrl = dalleReturn.data.data[0].url;
-          // const cloudinaryUpload = await cloudinary.uploader.upload(
-          //   aiUrl, {
-          //     folder: "opencatvision",
-          //     public_id: id
-          //   }
-          // )
+        const dalleReturn = await openai.createImage({
+          prompt: input.generator,
+          n: 1,
+          size: "1024x1024"
+        })
+        if (dalleReturn?.data?.data?.[0]?.url) {
+          const aiUrl = dalleReturn.data.data[0].url;
+          const cloudinaryUpload = await cloudinary.uploader.upload(
+            aiUrl, {
+              folder: "opencatvision",
+              public_id: id
+            }
+          )
           await ctx.serverbase.from("Images").insert({
             ...input,
-            url: temp.url,
+            url: cloudinaryUpload.url,
           } as { generator: string, url: string, user_id: string })
-          return temp.url;
+          return cloudinaryUpload.url;
         }
       }),
 
